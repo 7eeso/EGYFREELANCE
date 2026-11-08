@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Post a project | EgyFreelancers{% endblock %}
+{% block content %}
+<section class="form-shell wrap">
+  <div class="form-side">
+    <span class="eyebrow">Client workspace</span>
+    <h1>Tell us what you're building.</h1>
+    <p>Share the details of your project and find a freelancer who can help bring it to life.</p>
+    <div class="form-tip"><b>Helpful tip</b><small>Clear goals and deliverables help freelancers understand your project.</small></div>
+  </div>
+  <form class="form-card" id="project-form">
+    <div class="form-card-head"><span>Project details</span><small>1 of 1</small></div>
+    <label>Project title<input name="title" required maxlength="120" placeholder="e.g. Design a landing page for my shop"></label>
+    <label>What do you need?<textarea name="description" required maxlength="2000" placeholder="Describe the work, deliverables, and timeline"></textarea></label>
+    <label>Category<select name="category">{% for key, label in categories.items() %}<option value="{{ key }}">{{ label }}</option>{% endfor %}</select></label>
+    <button class="btn" type="submit">Continue</button>
+    <p class="form-message" aria-live="polite">Project publishing will be enabled with client accounts.</p>
+  </form>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/forms.js') }}"></script>{% endblock %}

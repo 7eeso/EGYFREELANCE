@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Log in | EgyFreelancers{% endblock %}
+{% block content %}
+<section class="auth-shell wrap">
+  <div class="auth-brand">
+    <span class="eyebrow">Welcome back</span>
+    <h1>Good to see you again.</h1>
+    <p>Your local freelance community is waiting.</p>
+  </div>
+  <form class="form-card" data-notice="Secure authentication is the next backend milestone, so sign-in isn't enabled yet.">
+    <div class="form-card-head"><span>Log in</span></div>
+    <label>Email<input name="email" type="email" required autocomplete="email" placeholder="you@example.com"></label>
+    <label>Password<input name="password" type="password" required autocomplete="current-password" placeholder="Your password"></label>
+    <button class="btn" type="submit">Log in</button>
+    <p class="form-message" aria-live="polite"></p>
+    <p>New to EgyFreelancers? <a href="{{ url_for('register') }}">Join the community</a></p>
+  </form>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/forms.js') }}"></script>{% endblock %}

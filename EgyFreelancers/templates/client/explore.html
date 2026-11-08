@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% from "_macros.html" import search_bar %}
+{% block title %}Explore Egyptian freelancers | EgyFreelancers{% endblock %}
+{% block content %}
+{% set active = request.args.get('category', '') %}
+<section class="explore-hero wrap">
+  <span class="eyebrow">The marketplace</span>
+  <h1>Find your next great hire.</h1>
+  <p class="lead">Browse services from Egyptian freelancers, all in one place.</p>
+  {{ search_bar('Search services or freelancers', 'Search', form_id='explore-form', input_id='search-input') }}
+</section>
+<section class="wrap explore-layout">
+  <aside class="filter-panel" aria-labelledby="filter-title">
+    <span class="eyebrow">Filter by</span>
+    <h2 id="filter-title">Categories</h2>
+    <nav class="filter-list" aria-label="Service categories">
+      <a class="filter-link" href="{{ url_for('explore') }}"{% if not active %} aria-current="true"{% endif %}>All services</a>
+      {% for key, label in categories.items() %}<a class="filter-link" href="{{ url_for('explore', category=key) }}"{% if active == key %} aria-current="true"{% endif %}>{{ label }}</a>{% endfor %}
+    </nav>
+    <div class="filter-note"><b>Local talent.</b><small>Made for Egypt, with payment preferences that make sense locally.</small></div>
+  </aside>
+  <div class="explore-results">
+    <div class="results-head"><div><b>Available services</b><small id="results-caption">Explore the marketplace</small></div><span class="sort-label">Newest first</span></div>
+    <div id="explore-gigs" class="gig-grid" data-img-base="{{ url_for('static', filename='img/') }}" aria-live="polite"><div class="loading-card">Loading marketplace…</div></div>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/marketplace.js') }}"></script>{% endblock %}

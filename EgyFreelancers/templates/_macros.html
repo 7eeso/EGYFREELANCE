@@ -1,0 +1,8 @@
+{# Shared search bar. Used on the homepage and the explore page. #}
+{% macro search_bar(placeholder, button, action=none, form_id=none, input_id=none) -%}
+<form class="search-bar" role="search"{% if action %} action="{{ action }}"{% endif %}{% if form_id %} id="{{ form_id }}"{% endif %}>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+  <input type="search" name="search"{% if input_id %} id="{{ input_id }}"{% endif %} placeholder="{{ placeholder }}" aria-label="{{ placeholder }}" autocomplete="off">
+  <button class="btn" type="submit">{{ button }}</button>
+</form>
+{%- endmacro %}

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}EgyFreelancers{% endblock %}</title>
+<meta name="description" content="{% block description %}EgyFreelancers is a freelance marketplace for Egypt. Discover local talent, compare services and bring your next idea to life.{% endblock %}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+{% block styles %}{% endblock %}
+</head>
+<body>
+{% set ep = request.endpoint %}{% set cat = request.args.get('category') %}
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header" id="site-header">
+  <div class="wrap header-inner">
+    <a class="logo" href="{{ url_for('home') }}" aria-label="EgyFreelancers home"><span class="logo-mark" aria-hidden="true">E</span><span class="logo-text">egy<b>freelancers</b></span></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" data-nav-toggle>Menu</button>
+    <div class="site-menu" id="site-menu">
+      <nav class="main-nav" aria-label="Primary">
+        <a href="{{ url_for('explore') }}"{% if ep == 'explore' and not cat %} aria-current="page"{% endif %}>Explore</a>
+        <a href="{{ url_for('explore', category='development') }}"{% if ep == 'explore' and cat == 'development' %} aria-current="page"{% endif %}>Web development</a>
+        <a href="{{ url_for('explore', category='design') }}"{% if ep == 'explore' and cat == 'design' %} aria-current="page"{% endif %}>Design</a>
+        <a href="{{ url_for('post_project') }}"{% if ep == 'post_project' %} aria-current="page"{% endif %}>Post a project</a>
+        <a href="{{ url_for('home') }}#how">How it works</a>
+      </nav>
+      <div class="header-actions">
+        <a class="btn btn-secondary btn-sm" href="{{ url_for('login') }}">Log in</a>
+        <a class="btn btn-sm" href="{{ url_for('register') }}">Join</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main">{% block content %}{% endblock %}</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <a class="logo" href="{{ url_for('home') }}" aria-label="EgyFreelancers home"><span class="logo-mark" aria-hidden="true">E</span><span class="logo-text">egy<b>freelancers</b></span></a>
+      <p>Local talent. Real opportunities. Built for Egypt.</p>
+      <div class="footer-actions">
+        <a class="btn btn-sm" href="{{ url_for('post_gig') }}">Start freelancing</a>
+        <a class="btn btn-secondary btn-sm" href="{{ url_for('post_project') }}">Post a project</a>
+      </div>
+    </div>
+    <nav class="footer-col" aria-labelledby="f-market">
+      <h2 id="f-market">Marketplace</h2>
+      <ul>
+        <li><a href="{{ url_for('explore') }}">Explore services</a></li>
+        {% for key, label in categories.items() %}<li><a href="{{ url_for('explore', category=key) }}">{{ label }}</a></li>{% endfor %}
+      </ul>
+    </nav>
+    <nav class="footer-col" aria-labelledby="f-freelancers">
+      <h2 id="f-freelancers">For freelancers</h2>
+      <ul>
+        <li><a href="{{ url_for('post_gig') }}">Post a gig</a></li>
+        <li><a href="{{ url_for('freelancer_dashboard') }}">Freelancer dashboard</a></li>
+        <li><a href="{{ url_for('freelancer_profile') }}">Freelancer profile</a></li>
+        <li><a href="{{ url_for('register') }}">Create an account</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-col" aria-labelledby="f-clients">
+      <h2 id="f-clients">For clients</h2>
+      <ul>
+        <li><a href="{{ url_for('post_project') }}">Post a project</a></li>
+        <li><a href="{{ url_for('explore') }}">Find talent</a></li>
+        <li><a href="{{ url_for('explore') }}">Explore services</a></li>
+        <li><a href="{{ url_for('register') }}">Create an account</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-col" aria-labelledby="f-about">
+      <h2 id="f-about">About</h2>
+      <ul>
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('home') }}#how">How it works</a></li>
+        <li><a href="{{ url_for('login') }}">Log in</a></li>
+        <li><a href="{{ url_for('register') }}">Registration</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap footer-bottom"><span>© 2026 EgyFreelancers · Demo marketplace</span><span>Made for Egypt</span></div>
+</footer>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

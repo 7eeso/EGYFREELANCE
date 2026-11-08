@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Freelancer profile | EgyFreelancers{% endblock %}
+{% block content %}
+<section class="dashboard-page wrap">
+  <span class="eyebrow">Your profile</span>
+  <h1>Show them what you can do.</h1>
+  <p class="lead">Portfolio uploads, verified skills, and client reviews will connect here after account registration is implemented.</p>
+  <a class="btn" href="{{ url_for('post_gig') }}">Create your first gig</a>
+</section>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Join EgyFreelancers{% endblock %}
+{% block content %}
+<section class="auth-shell wrap">
+  <div class="auth-brand">
+    <span class="eyebrow">Join the community</span>
+    <h1>Your next chapter starts here.</h1>
+    <p>Whether you're hiring or offering your skills, there's a place for you.</p>
+  </div>
+  <form class="form-card" data-notice="Secure registration is the next backend milestone, so account creation isn't enabled yet.">
+    <div class="form-card-head"><span>Create account</span></div>
+    <label>Display name<input name="display_name" required maxlength="80" autocomplete="name" placeholder="Your name"></label>
+    <label>Email<input name="email" type="email" required autocomplete="email" placeholder="you@example.com"></label>
+    <label>Password<input name="password" type="password" required minlength="8" autocomplete="new-password" placeholder="At least 8 characters"></label>
+    <label>I'm here to<select name="role"><option value="client">Hire freelancers</option><option value="freelancer">Offer my services</option></select></label>
+    <button class="btn" type="submit">Create account</button>
+    <p class="form-message" aria-live="polite"></p>
+    <p>Already a member? <a href="{{ url_for('login') }}">Log in</a></p>
+  </form>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/forms.js') }}"></script>{% endblock %}

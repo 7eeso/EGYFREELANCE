@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% from "_macros.html" import search_bar %}
+{% block title %}EgyFreelancers — Find your next freelancer{% endblock %}
+{% block styles %}<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">{% endblock %}
+{% set cat_info = {
+  'design': 'Logos, branding, social media and print design.',
+  'development': 'Websites, landing pages and web apps.',
+  'writing': 'Copywriting, content and Arabic–English translation.',
+  'marketing': 'Social media, campaigns and online promotion.',
+  'video': 'Editing, captions and promo videos.',
+  'business': 'Admin, planning and everyday business support.'
+} %}
+{% set showcase = [
+  ('design', 'showcase-branding.webp', 'Branding and graphic design', 'Logos, identities and visuals that make a business recognisable.'),
+  ('development', 'showcase-website.webp', 'Website development', 'Responsive websites and landing pages built around your goals.'),
+  ('video', 'showcase-video.webp', 'Video editing', 'Clean cuts, captions and exports for social and promo videos.'),
+  ('marketing', 'showcase-content.webp', 'Digital content', 'Social posts and campaign content with a consistent look.')
+] %}
+{% block content %}
+<section class="hero wrap" aria-labelledby="hero-title">
+  <figure class="hero-media" data-hero-media>
+    <video class="hero-video" autoplay muted loop playsinline preload="metadata" width="1280" height="540" poster="{{ url_for('static', filename='img/hero-poster.jpg') }}" aria-hidden="true" tabindex="-1">
+      <source src="{{ url_for('static', filename='video/hero.webm') }}" type="video/webm">
+      <source src="{{ url_for('static', filename='video/hero.mp4') }}" type="video/mp4">
+    </video>
+    <img class="hero-fallback" src="{{ url_for('static', filename='img/hero-poster.jpg') }}" width="1280" height="540" alt="Illustration of a freelancer workspace: branding, a website being built and a video timeline">
+    <button class="btn btn-secondary btn-sm video-toggle" type="button" data-video-toggle hidden>Pause video</button>
+  </figure>
+
+  <div class="hero-copy">
+    <span class="eyebrow">The freelance marketplace for Egypt</span>
+    <h1 id="hero-title">Great work starts with <span>the right person.</span></h1>
+    <p class="hero-desc">Discover Egyptian talent, compare services, and bring your next idea to life — without the international-marketplace hassle.</p>
+    {{ search_bar('What are you looking for today?', 'Find talent', action=url_for('explore')) }}
+    <div class="popular"><span>Popular:</span><a href="{{ url_for('explore', category='development') }}">Website</a><a href="{{ url_for('explore', category='design') }}">Logo design</a><a href="{{ url_for('explore', category='video') }}">Video editing</a><a href="{{ url_for('explore', category='writing') }}">Translation</a></div>
+  </div>
+
+  <div class="points">
+    <div><b>Egypt-focused</b><small>Local opportunities</small></div>
+    <div><b>Portfolio-first</b><small>Show what you can do</small></div>
+    <div><b>Payment choices</b><small>Agree locally</small></div>
+    <div><b>Beginner-friendly</b><small>Every journey starts somewhere</small></div>
+  </div>
+</section>
+
+<section class="section wrap" id="categories">
+  <div class="section-heading">
+    <div><span class="eyebrow">Explore the marketplace</span><h2>What do you need done?</h2><p>Find a service that fits your project and budget.</p></div>
+    <a class="btn btn-secondary btn-sm" href="{{ url_for('explore') }}">Explore all services</a>
+  </div>
+  <div class="category-grid">
+    {% for key, label in categories.items() %}
+    <a class="category-card" href="{{ url_for('explore', category=key) }}">
+      <div class="cat-media"><img src="{{ url_for('static', filename='img/cat-' ~ key ~ '.webp') }}" width="640" height="400" loading="lazy" decoding="async" alt=""></div>
+      <div class="cat-body"><h3>{{ label }}</h3><p>{{ cat_info.get(key, 'Find your next specialist.') }}</p></div>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section showcase" aria-labelledby="showcase-title">
+  <div class="wrap">
+    <div class="section-heading">
+      <div><span class="eyebrow">What you can find</span><h2 id="showcase-title">The kinds of work you can hire for.</h2><p>Browse by the type of work, from brand identities to finished videos.</p></div>
+    </div>
+    <div class="showcase-grid">
+      {% for key, image, title, text in showcase %}
+      <a class="showcase-card" href="{{ url_for('explore', category=key) }}">
+        <div class="showcase-media"><img src="{{ url_for('static', filename='img/' ~ image) }}" width="800" height="520" loading="lazy" decoding="async" alt=""></div>
+        <div class="showcase-body"><div><h3>{{ title }}</h3><p>{{ text }}</p></div><span class="more">Browse →</span></div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section wrap">
+  <div class="section-heading">
+    <div><span class="eyebrow">Discover talent</span><h2>Services worth exploring.</h2><p>Meet local freelancers and see what they offer.</p></div>
+    <a class="btn btn-secondary btn-sm" href="{{ url_for('explore') }}">View marketplace</a>
+  </div>
+  <div id="featured-gigs" class="gig-grid" data-img-base="{{ url_for('static', filename='img/') }}" aria-live="polite"><div class="loading-card">Finding services…</div></div>
+</section>
+
+<section class="section showcase" id="how" aria-labelledby="how-title">
+  <div class="wrap">
+    <div class="section-heading">
+      <div><span class="eyebrow">Simple by design</span><h2 id="how-title">From idea to done.</h2><p>A straightforward way to find work and work with talent.</p></div>
+    </div>
+    <div class="steps">
+      <article><span class="step-num" aria-hidden="true">1</span><h3>Explore</h3><p>Search services and discover freelancers whose skills match your project.</p></article>
+      <article><span class="step-num" aria-hidden="true">2</span><h3>Connect</h3><p>Review the work, discuss the details, and agree on scope and payment.</p></article>
+      <article><span class="step-num" aria-hidden="true">3</span><h3>Get it done</h3><p>Work together, share feedback, and build a great result.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section wrap">
+  <div class="freelancer-banner">
+    <div>
+      <span class="eyebrow">For Egyptian freelancers</span>
+      <h2>Your skills deserve a real opportunity.</h2>
+      <p>Start with your first gig. Show your work. Build your reputation — one project at a time.</p>
+      <a class="btn" href="{{ url_for('post_gig') }}">Post your gig</a>
+    </div>
+    <div class="banner-note"><b>No experience certificate needed.</b><small>Let your work speak for you.</small></div>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/marketplace.js') }}"></script>{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}{% if gig %}{{ gig.title }} | EgyFreelancers{% else %}Service not found | EgyFreelancers{% endif %}{% endblock %}
+{% block content %}
+<section class="wrap detail-page">
+{% if gig %}
+  <a class="back-link" href="{{ url_for('explore') }}">← Back to marketplace</a>
+  <div class="detail-layout">
+    <article class="detail-main">
+      <div class="detail-art"><img src="{{ url_for('static', filename='img/cat-' ~ gig.category ~ '.webp') }}" width="640" height="400" alt="{{ categories.get(gig.category, gig.category) }} illustration"></div>
+      <div class="detail-meta"><span class="eyebrow">{{ categories.get(gig.category, gig.category) }}</span><span class="demo-label">DEMO LISTING</span></div>
+      <h1>{{ gig.title }}</h1>
+      <p class="detail-description">{{ gig.description }}</p>
+      <div class="seller-profile"><div class="seller-avatar" aria-hidden="true">{{ gig.seller_name[:1]|upper }}</div><div><b>{{ gig.seller_name }}</b><small>Egyptian freelancer · Portfolio-first profile</small></div></div>
+      <div class="detail-section"><h2>About this service</h2><p>Discuss your goals, deliverables, timing, and revisions with the freelancer before agreeing to work together.</p></div>
+    </article>
+    <aside class="order-panel" aria-label="Pricing and contact">
+      <span class="eyebrow">Starting price</span>
+      <h2>{{ "{:,}".format(gig.price) }} <small>EGP</small></h2>
+      <p>Contact the freelancer to agree on scope and delivery.</p>
+      <div class="order-divider"></div>
+      <div class="order-row"><span>Payment preference</span><b>{{ payments.get(gig.payment_method, gig.payment_method) }}</b></div>
+      <div class="order-row"><span>Marketplace</span><b>Egypt-focused</b></div>
+      <a class="btn btn-block" href="{{ url_for('login') }}">Contact freelancer</a>
+      <small class="safe-note">This demo does not process payments or provide escrow.</small>
+    </aside>
+  </div>
+{% else %}
+  <div class="not-found">
+    <h1>Service not found</h1>
+    <p>This service may have been removed or is not approved.</p>
+    <a class="btn" href="{{ url_for('explore') }}">Return to marketplace</a>
+  </div>
+{% endif %}
+</section>
+{% endblock %}

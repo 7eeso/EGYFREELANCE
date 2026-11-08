@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Freelancer dashboard | EgyFreelancers{% endblock %}
+{% block content %}
+<section class="dashboard-page wrap">
+  <span class="eyebrow">Freelancer workspace</span>
+  <h1>Your work, your next step.</h1>
+  <p class="lead">Manage your services and build your local reputation.</p>
+  <div class="dashboard-grid">
+    <a class="dash-card" href="{{ url_for('post_gig') }}"><b>Create a gig</b><small>Publish a new service</small></a>
+    <a class="dash-card" href="{{ url_for('freelancer_profile') }}"><b>Profile &amp; portfolio</b><small>Introduce your work</small></a>
+    <div class="dash-card disabled" aria-disabled="true"><b>My gigs</b><small>Account management coming next</small></div>
+  </div>
+</section>
+{% endblock %}

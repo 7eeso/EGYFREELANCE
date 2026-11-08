@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Post your gig | EgyFreelancers{% endblock %}
+{% block content %}
+<section class="form-shell wrap">
+  <div class="form-side">
+    <span class="eyebrow">Freelancer workspace</span>
+    <h1>Turn your skills into opportunity.</h1>
+    <p>Create a service listing that tells clients what you do, what they receive, and how to get started.</p>
+    <div class="form-tip"><b>Portfolio over paperwork</b><small>You don't need years of experience to begin. Make your offer clear and show the work you can do.</small></div>
+    <a class="back-link" href="{{ url_for('freelancer_dashboard') }}">← Freelancer dashboard</a>
+  </div>
+  <form class="form-card" id="gig-form">
+    <div class="form-card-head"><span>Your service</span><small>1 of 1</small></div>
+    <label>Gig title<input name="title" required maxlength="120" placeholder="I will design a modern brand identity"></label>
+    <label>Description<textarea name="description" required maxlength="2000" placeholder="Explain what you offer and what the client receives"></textarea></label>
+    <div class="form-two">
+      <label>Category<select name="category">{% for key, label in categories.items() %}<option value="{{ key }}">{{ label }}</option>{% endfor %}</select></label>
+      <label>Starting price (EGP)<input name="price" type="number" min="1" max="1000000" required placeholder="500"></label>
+    </div>
+    <label>Display name<input name="seller_name" required maxlength="80" placeholder="Name clients will see"></label>
+    <label>Payment preference<select name="payment_method">{% for key, label in payments.items() %}<option value="{{ key }}">{{ label }}</option>{% endfor %}</select></label>
+    <button class="btn" type="submit">Submit for review</button>
+    <p class="form-message" aria-live="polite">Your listing is submitted as pending and will not appear publicly until approved.</p>
+  </form>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/forms.js') }}"></script>{% endblock %}
